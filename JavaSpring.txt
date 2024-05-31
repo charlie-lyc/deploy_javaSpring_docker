@@ -25,7 +25,7 @@ root      86157          1  0  2023 ?        01:27:00 java -jar sms-0.0.1-SNAPSH
 root     108077 108060  0 Feb08 ?        00:47:13 java -jar /app.jar
 root     117596 117579  0 Mar05 ?        00:23:14 java -jar /app.jar
 
-9. $ cp [project이름]-0.0.1-SNAPSHOT.jar <project이름>-0.0.1-SNAPSHOT_back_0320.jar
+9. $ cp [project이름]-0.0.1-SNAPSHOT.jar [project이름]-0.0.1-SNAPSHOT_back_0320.jar
 
 10. 빌드된 jar 파일을 ssh 클라이언트의 프로젝트 경로에 drag & drop
 
@@ -52,6 +52,8 @@ spring.devtools.restart.enabled = true
 spring.devtools.restart.additional-exclude = static/**,public/**
 ......
 
+
 ## 또는 운영체제 시스템에서?
+$ 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
