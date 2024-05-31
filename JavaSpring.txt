@@ -1,0 +1,57 @@
+# Java Spring 배포 방법
+
+1. remote main branch에 merge 실행
+
+2. local develop branch git pull 실행
+
+3. intellij 실행하여 프로젝트 열기
+
+4. 우측 상단 gradle 클릭하여 [project이름] > Tasks > build > clean 더블 클릭
+
+5. 이어서 [project이름] > Tasks > build > build 더블 클릭
+
+6. MobaXterm 실행하여 클라우드 서버 SSH로 연결 : 실행 권한상 <username> ( 예: root, ... 등) 이용
+
+7. 프로젝트 경로 이동 : /home/common/api/[project이름]
+
+8. $ ps -ef | grep java
+root      28465          1  0  2023 ?        01:17:04 java -jar zjsvlrm-0.0.1-SNAPSHOT.jar
+root      45593          1  0  2023 ?        01:43:25 java -jar data-0.0.1-SNAPSHOT.jar
+root      46281          1  0  2023 ?        01:15:40 java -jar gateway-0.0.1-SNAPSHOT.jar
+root      50496          1  0 13:48 ?        00:00:49 java -jar -Dspring.profiles.active=prod [project이름]-0.0.1-SNAPSHOT.jar
+root      73808          1  0 Jan11 ?        01:34:20 java -jar open-0.0.1-SNAPSHOT.jar
+root      79809   48818  0 21:27 pts/2    00:00:00 grep --color=auto java
+root      86157          1  0  2023 ?        01:27:00 java -jar sms-0.0.1-SNAPSHOT.jar
+root     108077 108060  0 Feb08 ?        00:47:13 java -jar /app.jar
+root     117596 117579  0 Mar05 ?        00:23:14 java -jar /app.jar
+
+9. $ cp [project이름]-0.0.1-SNAPSHOT.jar <project이름>-0.0.1-SNAPSHOT_back_0320.jar
+
+10. 빌드된 jar 파일을 ssh 클라이언트의 프로젝트 경로에 drag & drop
+
+11. $ kill -9 50496
+
+12. $ nohup java -jar -Dspring.profiles.active=prod [project이름]-0.0.1-SNAPSHOT.jar > [project이름]-0.0.1-SNAPSHOT_0320.log 2>&1 & 
+
+13. $ tail -f [project이름]-0.0.1-SNAPSHOT_0320.log
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 운영체제 재부팅시 자동 재시작 설정
+
+## application.properties (예시)
+......
+spring:
+    devtools:    
+    # Auto Restart
+    	restart:
+      		enabled: true
+      		additional-exclude: static/**,public/**
+            
+# OR
+spring.devtools.restart.enabled = true
+spring.devtools.restart.additional-exclude = static/**,public/**
+......
+
+## 또는 운영체제 시스템에서?
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
