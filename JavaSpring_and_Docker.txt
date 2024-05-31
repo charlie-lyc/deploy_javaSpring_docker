@@ -137,6 +137,7 @@ services:
     volumes:
       - /mnt/disks/data-disk-200g/mysql-data:/var/lib/mysql
 
+
 ## 또는 이미 docker container 가 실행 중이라면,
 
 $ docker ps -a
