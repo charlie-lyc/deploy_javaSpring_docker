@@ -1,13 +1,12 @@
-# Java Spring 과 Docker 이용 배포 방법
+# Java Spring 과 Docker 이용한 배포 방법
 
     - 1. gitlab main branch merge 후
-        
         
     - 2. 프로젝트 clean & build
         - Intellij 에서 gradle clean 후 build
         - /build/libs/ 폴더에 2가지 파일이 생성되는지 확인(생성이 안된다면 빌드가 제대로 작동하지 않은것임, 오류 찾아야 함)
         
-    - 3. 나눔에너지 ftp 접속
+    - 3. ftp 접속
         - 프로토콜: SFTP
         - 호스트: <ip>
         - 포트: <port>
@@ -94,7 +93,9 @@
             ```
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# docker-compose.yml (예시)
+# 운영체제 재부팅시 자동 재시작 설정
+
+## docker-compose.yml (예시)
 
 version: "3.1"
 services:
@@ -135,8 +136,8 @@ services:
     # ############### #
     volumes:
       - /mnt/disks/data-disk-200g/mysql-data:/var/lib/mysql
--------------------------------------------------------------------------------------------------------------------------------------------------------------------
-# 또는 이미 docker container 가 실행 중이라면,
+
+## 또는 이미 docker container 가 실행 중이라면,
 
 $ docker ps -a
 CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS                      PORTS     NAMES
@@ -145,3 +146,4 @@ eb8d9dee912e   mysql:8.0.22       "docker-entrypoint.s…"   57 minutes ago   Ex
 
 $ docker update --restart=always  fbe389fc69b1
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
